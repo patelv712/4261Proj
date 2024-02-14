@@ -6,26 +6,25 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int _selectedIndex = 0; // Current index for the bottom nav bar
+  int _selectedIndex = 0;
   TextEditingController _searchController = TextEditingController();
 
-  // Dummy list of data to simulate search
+  // Dummy data for profile details
+  String _username = 'John Doe';
+  String _email = 'john.doe@example.com';
+
+  // Dummy list for search functionality
   List<String> _allItems = ['computer', 'pencil', 'shirt', 'desk', 'headphone', 'backpack', 'book'];
   List<String> _searchResults = [];
 
-  // This method is called whenever the text field changes
+  // Search functionality
   void _runFilter(String enteredKeyword) {
     List<String> results = [];
     if (enteredKeyword.isEmpty) {
-      // If the search field is empty or only contains white-space, we'll display all data
       results = _allItems;
     } else {
-      results = _allItems
-          .where((item) =>
-              item.toLowerCase().contains(enteredKeyword.toLowerCase()))
-          .toList();
+      results = _allItems.where((item) => item.toLowerCase().contains(enteredKeyword.toLowerCase())).toList();
     }
-    // Refresh the UI
     setState(() {
       _searchResults = results;
     });
@@ -34,9 +33,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    // Start with all items in the search result
     _searchResults = _allItems;
-    // Listener for search field
     _searchController.addListener(() {
       _runFilter(_searchController.text);
     });
@@ -48,11 +45,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.dispose();
   }
 
-  static List<Widget> _widgetOptions(dynamic searchResults, TextEditingController searchController) {
-    // Home Screen Widget
+  static List<Widget> _widgetOptions(dynamic searchResults, TextEditingController searchController, String username, String email) {
     Widget homeWidget = Text('Home Screen', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold));
 
-    // Search Screen Widget
     Widget searchWidget = Column(
       children: [
         Padding(
@@ -78,8 +73,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ],
     );
 
-    // Profile Screen Widget
-    Widget profileWidget = Text('Profile', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold));
+    Widget profileWidget = Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'Profile',
+            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Text('Username: $username'),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Text('Email: $email'),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: OutlinedButton(
+            onPressed: () {
+              // Implement profile edit functionality
+            },
+            child: Text('Edit Profile'),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: OutlinedButton(
+            onPressed: () {
+              // Implement logout functionality
+            },
+            child: Text('Logout'),
+          ),
+        ),
+      ],
+    );
 
     return [homeWidget, searchWidget, profileWidget];
   }
@@ -91,7 +123,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: Text('Dashboard'),
       ),
       body: Center(
-        child: _widgetOptions(_searchResults, _searchController).elementAt(_selectedIndex),
+        child: _widgetOptions(_searchResults, _searchController, _username, _email).elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
