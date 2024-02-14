@@ -9,11 +9,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
   TextEditingController _searchController = TextEditingController();
 
-  // Dummy data for profile details
+  // Dummy data for demonstration purposes
   String _username = 'John Doe';
   String _email = 'john.doe@example.com';
-
-  // Dummy list for search functionality
   List<String> _allItems = ['computer', 'pencil', 'shirt', 'desk', 'headphone', 'backpack', 'book'];
   List<String> _searchResults = [];
 
@@ -45,15 +43,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
     super.dispose();
   }
 
-  static List<Widget> _widgetOptions(dynamic searchResults, TextEditingController searchController, String username, String email) {
-    Widget homeWidget = Text('Home Screen', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold));
+  Widget homeWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'Welcome to the Home Screen',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        ElevatedButton(
+          child: Text('See Past Purchases'),
+          onPressed: () {
+            // Implement your navigation or functionality here
+          },
+        ),
+        ElevatedButton(
+          child: Text('See Current Listings'),
+          onPressed: () {
+            // Implement your navigation or functionality here
+          },
+        ),
+      ],
+    );
+  }
 
-    Widget searchWidget = Column(
+  Widget searchWidget() {
+    return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: TextField(
-            controller: searchController,
+            controller: _searchController,
             decoration: InputDecoration(
               labelText: 'Search',
               suffixIcon: Icon(Icons.search),
@@ -62,18 +83,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: searchResults.length,
+            itemCount: _searchResults.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(searchResults[index]),
+                title: Text(_searchResults[index]),
               );
             },
           ),
         ),
       ],
     );
+  }
 
-    Widget profileWidget = Column(
+  Widget profileWidget() {
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -86,11 +109,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Text('Username: $username'),
+          child: Text('Username: $_username'),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Text('Email: $email'),
+          child: Text('Email: $_email'),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -112,9 +135,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ],
     );
-
-    return [homeWidget, searchWidget, profileWidget];
   }
+
+  List<Widget> get widgetOptions => [homeWidget(), searchWidget(), profileWidget()];
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +146,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         title: Text('Dashboard'),
       ),
       body: Center(
-        child: _widgetOptions(_searchResults, _searchController, _username, _email).elementAt(_selectedIndex),
+        child: widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
