@@ -55,13 +55,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ElevatedButton(
           child: Text('See Past Purchases'),
           onPressed: () {
-            // Implement your navigation or functionality here
+            // TODO
           },
         ),
         ElevatedButton(
           child: Text('See Current Listings'),
           onPressed: () {
-            // Implement your navigation or functionality here
+            // TODO
           },
         ),
       ],
@@ -119,7 +119,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: OutlinedButton(
             onPressed: () {
-              // Implement profile edit functionality
+              // TODO
             },
             child: Text('Edit Profile'),
           ),
@@ -128,7 +128,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: OutlinedButton(
             onPressed: () {
-              // Implement logout functionality
+              // TODO
             },
             child: Text('Logout'),
           ),
