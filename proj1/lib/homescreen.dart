@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -40,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 24.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Implement submit functionality
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => DashboardScreen()));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
