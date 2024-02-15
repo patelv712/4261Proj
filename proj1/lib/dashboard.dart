@@ -52,18 +52,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
-        ElevatedButton(
-          child: Text('See Past Purchases'),
-          onPressed: () {
-            // TODO
-          },
-        ),
-        ElevatedButton(
-          child: Text('See Current Listings'),
-          onPressed: () {
-            // TODO
-          },
-        ),
+        
       ],
     );
   }
